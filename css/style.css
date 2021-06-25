@@ -31,4 +31,83 @@ body {
   top: 20px;
 }
 
+.type-search {
+  margin-top: 80px;
+  display: flex;
+}
+.type-search .type-search-icon {
+  position: absolute;
+  top: 300px;
+  z-index: 50;
+}
+.type-search .type-search-input {
+  position: relative;
+  padding: 20px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 25px;
+  width: 170px;
+  height: 60px;
+}
+.type-search #ingredients {
+  background-color: #3282f7;
+}
+.type-search #appliance {
+  background-color: #68d9a4;
+}
+.type-search #ustensils {
+  background-color: #ed6454;
+}
+
+#recipes {
+  margin-top: 50px;
+  grid-template-columns: repeat(2, 1fr);
+  display: grid;
+  grid-gap: 30px;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+#recipes ul {
+  list-style-type: none;
+  padding-left: unset;
+  margin: unset;
+}
+
+.card {
+  width: 100%;
+  background-color: #e7e7e7;
+}
+.card .card-image {
+  width: 100%;
+}
+.card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 0 20px;
+}
+.card .card-header .card-title {
+  font-size: 25px;
+  font-weight: 400;
+}
+.card .card-header .card-time {
+  font-weight: 700;
+}
+.card .card-recipe {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px 0 20px;
+  align-items: flex-start;
+}
+.card .card-recipe .card-ingredients,
+.card .card-recipe .card-description {
+  width: 50%;
+  font-size: 15px;
+}
+.card .card-recipe .card-description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 180px;
+}
+
 /*# sourceMappingURL=style.css.map */

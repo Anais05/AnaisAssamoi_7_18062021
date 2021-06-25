@@ -22,5 +22,28 @@
             <input type="search" class="search-input" name="search" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette">
             <i class="search-icon fas fa-search"></i>
         </div>
+
+        <section class="type-search">
+            <div id="dropdown-ingredients">
+                <input type="search" id="ingredients" class="type-search-input"  placeholder="Ingrédients"/>
+                <i class="type-search-icon fas fa-chevron-down"></i>
+            </div>
+            <div id="dropdown-appliance">
+                <input type="search" id="appliance" class="type-search-input"  placeholder="Appareil"/>
+                <i class="type-search-icon fas fa-chevron-down"></i>
+            </div>
+            <div id="dropdown-ustensils">
+                <input type="search" id="ustensils" class="type-search-input"  placeholder="Ustensiles"/>
+                <i class="type-search-icon fas fa-chevron-down"></i>
+            </div>
+
+        </section>
+
+        <main id="recipes"></main>
+
+        <script src="./js/data.js"></script>
+        <script src="./js/Recipe.js"></script>
+        <script src="./js/List.js"></script>
+        <script src="./js/index.js"></script>
     </body>
 </html>
