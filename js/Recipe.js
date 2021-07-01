@@ -10,23 +10,40 @@ class Recipe {
         this.description = data.description;
         this.appliance = data.appliance;
         this.ustensils = data.ustensils;
-        this.ingredientList ="";
+        this.maxDescriptionLength = 230;
     }
 
-    getIngredients()
+    rederIngredients()
     {
+        let html = '';
+
         this.ingredients.forEach((ingr) => {
-            if (ingr.quantity) {
-                if (ingr.unit && ingr.quantity) {
-                return this.ingredientList += `<li class="ingredient">${ingr.ingredient} : ${ingr.quantity} ${ingr.unit}</li>`;
-                } else {
-               return this.ingredientList += `<li class="ingredient">${ingr.ingredient} : ${ingr.quantity}</li>`;
-                }
-            } else {
-                return this.ingredientList += `<li class="ingredient">${ingr.ingredient}</li>`;
+            html += `<li class="ingredient"><span class="ingr-name">${ingr.ingredient}</span>`;
+
+            if (ingr.hasOwnProperty('quantity') || ingr.hasOwnProperty('unit')) 
+            {
+                html += ' : ';
             }
-        })
-            
+            if (ingr.hasOwnProperty('quantity')) 
+            {
+                html += ingr.quantity;
+            } 
+            if (ingr.hasOwnProperty('unit')) 
+            {
+                html += ` ${ingr.unit}`;
+            }
+            html += '</li>'
+        });
+       
+        return html;
+    }
+
+    getShortDescription() {
+        if (this.description.length > this.maxDescriptionLength) 
+        {
+            return this.description.substring(0,this.maxDescriptionLength) + ' ...';
+        }
+        return this.description;
     }
 
     renderCard() {
@@ -40,15 +57,23 @@ class Recipe {
                     </div>
                     <div class="card-recipe">
                         <ul class="card-ingredients">
-                        // ${this.getIngredients()}
-                        ${this.ingredients.map(ingredient => `
-                        <li class="ingredient">${ingredient.ingredient} : ${ingredient.quantity} ${ingredient.unit}</li>`).join('')}
-                            
+                            ${this.rederIngredients()}
                         </ul>
-                        <div class="card-description">${this.description}</div>
+                        <div class="card-description">${this.getShortDescription()}</div>
                     </div>
                 </div>
             </article>
         `
+    }
+
+    hasIngredient(ingredient)
+    {
+        for (let i = 0; i < this.ingredients.length; i++) {
+            if (this.ingredients[i].ingredient == ingredient) 
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
