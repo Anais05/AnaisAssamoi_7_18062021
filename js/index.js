@@ -5,6 +5,7 @@ list.init(recipes);
 // Ingredients
 list.collectIngredients();
 list.displayIngredients(list.ingredients);
+list.filtered = list.all;
 list.listenOnSelectIngredient();
 
 // Appliances

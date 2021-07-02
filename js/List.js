@@ -2,11 +2,11 @@ class List {
     constructor() {
       this.all = [];
       this.ingredients = [];
-      this.selectedIngredients = [];
+      this.selectedIngredients = new Set();
+      this.filteredIngredients = new Set()
       this.appliances = [];
       this.ustensils = [];
-      this.filtered = [];
-      this.activeTag = [];
+      this.filtered = new Set();
     }
 
     init(recipes) 
@@ -56,79 +56,109 @@ class List {
 
     displayIngredients(list)
     {
-        list = new Set(list);
         let html = '';
 
         list.forEach(ingr => {
-            html += `<a href="#" class="ingr-tag tag" id="${ingr}">${ingr}</a>`;
+            html += `<a href="#" class="ingr-tag tag" data-ingr-id="${ingr}">${ingr}</a>`;
         })
         document.getElementById('ingredients-list').innerHTML = html
     }
 
     displayAppliances(list) 
     {
-        list = new Set(list);
         let html = "";
     
         list.forEach(appl => {
-          html += `<a href="#" class="appl-tag tag" id="${appl}">${appl}</a>`;
+          html += `<a href="#" class="appl-tag tag" data-appl-id="${appl}">${appl}</a>`;
         })
         document.getElementById("appliance-list").innerHTML = html;
     }
 
     displayUstensils(list)
     {
-        list = new Set(list);
         let html = '';
 
         list.forEach(ust => {
-            html += `<a href="#" class="ingr-tag tag" id="${ust}">${ust}</a>`;
+            html += `<a href="#" class="ingr-tag tag" data-ust-id="${ust}">${ust}</a>`;
         })
         document.getElementById('ustensils-list').innerHTML = html
     }
 
     listenOnSelectIngredient()
     {
-        let tags = document.querySelectorAll('.ingr-tag');
-        tags.forEach(tag => {
-            tag.addEventListener('click', (e) => {
-                if (this.selectedIngredients.includes(tag)) {
+        document.querySelectorAll('.ingr-tag').forEach(element => {
+            element.addEventListener('click', (e) => {
+                let tag = e.target.getAttribute('data-ingr-id')
+                if (this.selectedIngredients.has(tag)) {
                     this.removeFromFilter(tag);
+                    this.displayUnselectedTag(e.target)
                 } else {
                     this.addToFilter(tag);
-                    let ingr = e.target.getAttribute('id');
-                    this.filterByIngredient(ingr);
-                    this.selectedIngredients.push(ingr);
-                    console.log(this.selectedIngredients);
+                    this.displaySelectedTag(e.target)
                 }
+
+                this.filterByIngredient();
+                this.displayRecipes(this.filtered);
+                this.filterIngredientPerFilteredRecipies();
+                this.displayIngredients(this.filteredIngredients);
+                this.listenOnSelectIngredient();
                 
             })
         })
     }
 
-    filterByIngredient(ingredient)
+    filterByIngredient()
     {
-        this.all.filter(recipe => {
-            if (recipe.hasIngredient(ingredient)) {
-                this.filtered.push(recipe)
+        let list = [];
+
+        this.filtered.forEach(recipe => {
+            let isSelectable = true;
+
+            this.selectedIngredients.forEach(ingredient => {
+                if (!recipe.hasIngredient(ingredient)) {
+                   isSelectable = false;
+                }
+            })
+
+            if (isSelectable) {
+                list.push(recipe);
             }
+            
         })
-        this.displayRecipes(this.filtered);
+
+        this.filtered = list;
+    }
+
+    filterIngredientPerFilteredRecipies()
+    {
+        let list = new Set();
+
+        this.filtered.forEach(recipe => {
+            recipe.ingredients.forEach(item => {
+                list.add(item.ingredient)
+            })
+        })
+        this.filteredIngredients = list;
     }
 
     addToFilter(tag)
     {
-        let el = document.getElementById(tag);
+        this.selectedIngredients.add(tag);
+    }
+
+    displaySelectedTag(el)
+    {
         el.classList.add('select');
-        this.selectedIngredients.push(tag);
     }
 
     removeFromFilter(tag)
     {
-        let el = document.getElementById(tag);
+        this.selectedIngredients.delete(tag);
+    }
+
+    displayUnselectedTag(el)
+    {
         el.classList.remove('select');
-        let indexTag = this.selectedIngredients.findIndex(item => item == tag);
-        this.selectedIngredients.splice(indexTag, 1);
     }
 }
 
