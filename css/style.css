@@ -36,7 +36,6 @@ body {
 
 .type-search {
   margin-top: 50px;
-  margin-bottom: 180px;
 }
 .type-search .dropDown-menu {
   display: flex;
@@ -115,7 +114,7 @@ body {
 }
 
 #recipes {
-  margin-top: 50px;
+  margin-top: 180px;
   grid-template-columns: repeat(2, 1fr);
   display: grid;
   grid-gap: 30px;

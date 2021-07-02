@@ -2,6 +2,7 @@ class List {
     constructor() {
       this.all = [];
       this.ingredients = [];
+      this.selectedIngredients = [];
       this.appliances = [];
       this.ustensils = [];
       this.filtered = [];
@@ -89,13 +90,20 @@ class List {
     listenOnSelectIngredient()
     {
         let tags = document.querySelectorAll('.ingr-tag');
-        for (let i = 0; i < tags.length; i++) {
-            let tag = tags[i];
-           tag.addEventListener('click', (e) => {
-               let ingr = e.target.getAttribute('id');
-               this.filterByIngredient(ingr);
-           })
-        }
+        tags.forEach(tag => {
+            tag.addEventListener('click', (e) => {
+                if (this.selectedIngredients.includes(tag)) {
+                    this.removeFromFilter(tag);
+                } else {
+                    this.addToFilter(tag);
+                    let ingr = e.target.getAttribute('id');
+                    this.filterByIngredient(ingr);
+                    this.selectedIngredients.push(ingr);
+                    console.log(this.selectedIngredients);
+                }
+                
+            })
+        })
     }
 
     filterByIngredient(ingredient)
@@ -106,6 +114,21 @@ class List {
             }
         })
         this.displayRecipes(this.filtered);
+    }
+
+    addToFilter(tag)
+    {
+        let el = document.getElementById(tag);
+        el.classList.add('select');
+        this.selectedIngredients.push(tag);
+    }
+
+    removeFromFilter(tag)
+    {
+        let el = document.getElementById(tag);
+        el.classList.remove('select');
+        let indexTag = this.selectedIngredients.findIndex(item => item == tag);
+        this.selectedIngredients.splice(indexTag, 1);
     }
 }
 
