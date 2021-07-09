@@ -7,10 +7,6 @@ class IngredientsList {
       this.filtered = new Set();
     }
 
-    init() {
-        this.collectIngredients();
-    }
-
     collectIngredients() 
     {
         this.all.forEach(recipe => {
@@ -85,5 +81,25 @@ class IngredientsList {
             })
         })
         this.filteredIngredients = list;
+    }
+
+    addToFilter(tag)
+    {
+        this.selectedIngredients.add(tag);
+    }
+
+    displaySelectedTag(el)
+    {
+        el.classList.add('select');
+    }
+
+    removeFromFilter(tag)
+    {
+        this.selectedIngredients.delete(tag);
+    }
+
+    displayUnselectedTag(el)
+    {
+        el.classList.remove('select');
     }
 }
