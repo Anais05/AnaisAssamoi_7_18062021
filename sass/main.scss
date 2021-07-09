@@ -121,7 +121,21 @@ body {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    overflow: scroll;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: white;
+      border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $dark-grey;
+      border-radius: 20px;
+    }
   }
 
   .tag {

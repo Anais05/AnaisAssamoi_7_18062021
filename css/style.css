@@ -103,7 +103,18 @@ body {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  overflow: scroll;
+  overflow-y: scroll;
+}
+.type-search .list::-webkit-scrollbar {
+  width: 5px;
+}
+.type-search .list::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 20px;
+}
+.type-search .list::-webkit-scrollbar-thumb {
+  background: #c7bebe;
+  border-radius: 20px;
 }
 .type-search .tag {
   text-decoration: none;
