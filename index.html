@@ -23,48 +23,20 @@
             <i class="search-icon fas fa-search"></i>
         </div>
 
-        <section class="type-search">
-            <div class="dropDown-menu">
-                <div id="dropdown-ingredients" class="menu-close">
-                    <input type="search" id="ingredients" class="type-search-input" placeholder="Ingrédients"/>
-                    <i class="type-search-icon fas fa-chevron-down" id="ingr-close"></i>
-                </div>
-                <div id="dropdown-ingredients-open" class="menu-open">
-                    <input type="search" id="ingredients" class="type-search-input open-search-input" placeholder="Rechercher un ingrédient"/>
-                    <i class="type-search-icon fas fa-chevron-up" id="ingr-open"></i>
-                    <div id="ingredients-list" class="list"></div>
-                </div>
-                <div id="dropdown-appliance" class="menu-close">
-                    <input type="search" id="appliance" class="type-search-input" placeholder="Appareil"/>
-                    <i class="type-search-icon fas fa-chevron-down" id="appl-close"></i>
-                </div>
-                <div id="dropdown-appliance-open" class="menu-open">
-                    <input type="search" id="appliance" class="type-search-input open-search-input" placeholder="Rechercher un appareil"/>
-                    <i class="type-search-icon fas fa-chevron-up" id="appl-open"></i>
-                    <div id="appliance-list" class="list"></div>
-                </div>
-                <div id="dropdown-ustensils" class="menu-close">
-                    <input type="search" id="ustensils" class="type-search-input" placeholder="Ustensiles"/>
-                    <i class="type-search-icon fas fa-chevron-down" id="ust-close"></i>
-                </div>
-                <div id="dropdown-ustensils-open" class="menu-open">
-                    <input type="search" id="ustensils" class="type-search-input open-search-input" placeholder="Rechercher un ustensile"/>
-                    <i class="type-search-icon fas fa-chevron-up" id="ust-open"></i>
-                    <div id="ustensils-list" class="list"></div>
-                </div>
-            </div>
-        </section>
+        <section id="selection"></section>
+
+        <section class="type-search" id="filters"></section>
 
         <main id="recipes"></main>
 
         <script src="./js/data.js"></script>
+        <script src="./js/Filterable.js"></script>
+        <script src="./js/Filter.js"></script>
         <script src="./js/Recipe.js"></script>
-        <script src="./js/dropdownMenu.js"></script>
         <script src="./js/List.js"></script>
-        <script src="./js/IngredientsList.js"></script>
-        <script src="./js/AppliancesList.js"></script>
-        <script src="./js/UstensilsList.js"></script>
         <script src="./js/index.js"></script>
+        <script src="./js/dropdownMenu.js"></script>
+
 
     </body>
 </html>

@@ -42,19 +42,31 @@ body {
 
 .type-search {
   margin-top: 50px;
+  display: flex;
+  position: absolute;
 
-  .dropDown-menu {
-    display: flex;
-    position: absolute;
+  .menu-close {
+    display: block;
   }
 
   .menu-open {
     display: none;
     width: 50%;
-  }
+    border-radius: 5px;
+    padding-bottom: 25px;
 
-  .menu-close {
-    display: block;
+    .type-search-input {
+      width: 97%;
+
+      &:focus {
+        width: 97%;
+      }
+    }
+
+    .type-search-icon {
+      top: -40px;
+      right: -90%;
+    }
   }
 
   .type-search-icon {
@@ -71,6 +83,7 @@ body {
     border: none;
     border-radius: 5px;
     height: 60px;
+    width: 170px;
 
     &::placeholder {
       color: white;
@@ -84,47 +97,45 @@ body {
       font-weight: bold;
       font-size: 15px;
       outline: none;
+      width: 170px;
     }
   }
 
-  .open-search-input,
-  .list {
-    width: 96%;
-  }
-
-  #ingredients,
-  #dropdown-ingredients-open {
+  #ingredient,
+  #dropdown-ingredient-open,
+  .ingredient-selected-tag {
     background-color: $primary;
   }
 
   #appliance,
-  #dropdown-appliance-open {
+  #dropdown-appliance-open,
+  .appliance-selected-tag {
     background-color: $secondary;
   }
 
-  #ustensils,
-  #dropdown-ustensils-open {
+  #ustensil,
+  #dropdown-ustensil-open,
+  .ustensil-selected-tag {
     background-color: $tertiary;
   }
 
-  #dropdown-ingredients,
+  #dropdown-ingredient,
   #dropdown-appliance,
-  #dropdown-ingredients-open,
+  #dropdown-ingredient-open,
   #dropdown-appliance-open {
     margin-right: 30px;
   }
 
-  .list {
+  .dropdown-content {
     max-height: 400px;
+    padding-left: 15px;
     width: 97%;
-    margin-left: 15px;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     overflow-y: scroll;
 
     &::-webkit-scrollbar {
-      width: 5px;
+      width: 7px;
     }
 
     &::-webkit-scrollbar-track {
@@ -141,14 +152,25 @@ body {
   .tag {
     text-decoration: none;
     color: white;
-    width: 32%;
     font-size: 17px;
     font-weight: 700;
   }
 }
 
+#selection {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+
+  #ingredient-tags-selected,
+  #appliance-tags-selected,
+  #ustensil-tags-selected {
+    width: 30%;
+  }
+}
+
 #recipes {
-  margin-top: 180px;
+  margin-top: 230px;
   grid-template-columns: repeat(2, 1fr);
   display: grid;
   grid-gap: 30px;

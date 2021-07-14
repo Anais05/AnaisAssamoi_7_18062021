@@ -13,6 +13,55 @@ class Recipe {
         this.maxDescriptionLength = 230;
     }
 
+    collectIngredients()
+    {
+        let list = [];
+
+        this.ingredients.forEach(ingr => {
+            list.push(ingr.ingredient);
+        });
+        return list;
+    }
+
+    collectAppliances()
+    {
+        return [this.appliance];
+    }
+
+    collectUstensils()
+    {
+        return this.ustensils;
+    }
+
+    hasIngredient(ingr)
+    {
+        for (let i = 0; i < this.ingredients.length; i++) {
+            if (this.ingredients[i].ingredient === ingr) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    hasAppliance(appl)
+    {
+        return this.appliance === appl;
+    }
+
+    hasUstensil(ust)
+    {
+        for (let i = 0; i < this.ustensils.length; i++) {
+            if (this.ustensils[i] === ust) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
     rederIngredients()
     {
         let html = '';
@@ -64,16 +113,5 @@ class Recipe {
                 </div>
             </article>
         `
-    }
-
-    hasIngredient(ingredient)
-    {
-        for (let i = 0; i < this.ingredients.length; i++) {
-            if (this.ingredients[i].ingredient == ingredient) 
-            {
-                return true;
-            }
-        }
-        return false;
     }
 }

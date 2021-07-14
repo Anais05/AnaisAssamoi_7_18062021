@@ -1,161 +1,122 @@
-class List {
+class List 
+{
     constructor() {
       this.all = [];
-      this.appliances = [];
-      this.ustensils = [];
       this.filtered = new Set();
+      this.filterables = {};
+      this.filters = [];
     }
 
-    init(recipes) 
+    add(recipe) 
     {
-        for (let recipe of recipes) 
-        {
-            this.all.push(new Recipe(recipe))
-        }
-        this.displayRecipes(this.all);
-
+        list.all.push(recipe);
     }
 
-    displayRecipes(recipes) 
+    displayRecipes() 
     {
         let html = '';
-        recipes.forEach((recipe) => 
-        {
+
+        for (let i = 0; i < this.filtered.length; i++) {
+            let recipe = new Recipe(this.filtered[i]);
             html += recipe.renderCard()
-        })
+        }
         document.getElementById('recipes').innerHTML = html;
     }
 
-    // collectIngredients() 
-    // {
-    //     this.all.forEach(recipe => {
-    //         recipe.ingredients.forEach(ingr => {
-    //             this.ingredients.push(ingr.ingredient);
-    //         })
-    //     })
-    // }
-
-    collectAppliances() 
+    addFilter(type, tag, recipesId) 
     {
-        this.all.forEach(recipe => {
-            this.appliances.push(recipe.appliance);
+        let filter = new Filter(type, tag, recipesId)
+        this.filters.push(filter);
+    }
+
+    build() 
+    {
+        list.displayRecipes();
+        console.log(this.filterables);
+        for (let [key, filterable] of Object.entries(this.filterable))
+        {
+            filterable.filtered = filterable.collect(this.filtered);
+            filterable.displayList(filterable.filtered);
+            filterable.listenForFilter();
+            filterable.build();
+            filterable.listenForUnselect();
+        }
+    }
+
+    createFilterable(name)
+    {
+        document.getElementById('filters').innerHTML += this.renderDropDown(name);
+        this.filterables[name] = new Filterable(name);
+        this.filterables[name].build();
+    }
+
+    filter()
+    {
+        if (this.filters.length === 0) {
+           return  this.filtered = this.all
+        }
+
+        this.filtered = [];
+
+        this._combine().forEach(id => {
+            this.filtered.push(this._findById(id))
         })
     }
 
-    collectUstensils() 
+    renderDropDown(type)
     {
-        this.all.forEach(recipe => {
-            recipe.ustensils.forEach(ust => {
-                this.ustensils.push(ust);
-            })
-        })
+        return `
+            <div id="dropdown-${type}" class="menu-close">
+                <input type="search" id="${type}" class="type-search-input" placeholder="${type}s"/>
+                <i class="type-search-icon fas fa-chevron-down" id="${type}-open"></i>
+            </div>
+            <div id="dropdown-${type}-open" class="menu-open">
+                <input type="search" id="${type}" class="type-search-input" placeholder="Rechercher un ${type}"/>
+                <i class="type-search-icon fas fa-chevron-up" id="${type}-close"></i>
+                <div class="dropdown-content" id="list-${type}"></div>
+            </div>
+        `
     }
 
-    // displayIngredients(list)
-    // {
-    //     let html = '';
-
-    //     list.forEach(ingr => {
-    //         html += `<a href="#" class="ingr-tag tag" data-ingr-id="${ingr}">${ingr}</a>`;
-    //     })
-    //     document.getElementById('ingredients-list').innerHTML = html
-    // }
-
-    displayAppliances(list) 
+    removeFromFilter(tag, type)
     {
-        let html = "";
-    
-        list.forEach(appl => {
-          html += `<a href="#" class="appl-tag tag" data-appl-id="${appl}">${appl}</a>`;
-        })
-        document.getElementById("appliance-list").innerHTML = html;
+        let index = this.filters.findIndex(filter => (filter.tag == tag && filter.type == type));
+        this.filters.splice(index, 1);
     }
 
-    displayUstensils(list)
+    _findById(id)
     {
-        let html = '';
-
-        list.forEach(ust => {
-            html += `<a href="#" class="ingr-tag tag" data-ust-id="${ust}">${ust}</a>`;
-        })
-        document.getElementById('ustensils-list').innerHTML = html
+        return this.all.find(recipe => recipe.id == id)
     }
 
-    // listenOnSelectIngredient()
-    // {
-    //     document.querySelectorAll('.ingr-tag').forEach(element => {
-    //         element.addEventListener('click', (e) => {
-    //             let tag = e.target.getAttribute('data-ingr-id')
-    //             if (this.selectedIngredients.has(tag)) {
-    //                 this.removeFromFilter(tag);
-    //                 this.displayUnselectedTag(e.target)
-    //             } else {
-    //                 this.addToFilter(tag);
-    //                 this.displaySelectedTag(e.target)
-    //             }
+    _combine()
+    {
+        let result = [];
 
-    //             this.filterByIngredient();
-    //             this.displayRecipes(this.filtered);
-    //             this.filterIngredientPerFilteredRecipies();
-    //             this.displayIngredients(this.filteredIngredients);
-    //             this.listenOnSelectIngredient();
+        for (let i = 0; i < this.filters.length; i++) {
+            let currentList = this.filters[i].recipesId;
+
+            for (let x = 0; x < currentList.length; x++) {
+                let currentValue = currentList[x];
+                if (result.indexOf(currentValue) === -1) {
+                    let existsInAll = true;
+                    for (let y = 0; y < this.filters.length; y++) {
+                        if (this.filters[y].recipesId.indexOf(currentValue) === -1) {
+                            existsInAll = false
+                            break
+                        }                        
+                    }
+                    if (existsInAll) {
+                        result.push(currentValue);
+                    }
+                }
                 
-    //         })
-    //     })
-    // }
-
-    // filterByIngredient()
-    // {
-    //     let list = [];
-
-    //     this.filtered.forEach(recipe => {
-    //         let isSelectable = true;
-
-    //         this.selectedIngredients.forEach(ingredient => {
-    //             if (!recipe.hasIngredient(ingredient)) {
-    //                isSelectable = false;
-    //             }
-    //         })
-
-    //         if (isSelectable) {
-    //             list.push(recipe);
-    //         }
+            }
             
-    //     })
+        }
 
-    //     this.filtered = list;
-    // }
+        return result;
 
-    // filterIngredientPerFilteredRecipies()
-    // {
-    //     let list = new Set();
-
-    //     this.filtered.forEach(recipe => {
-    //         recipe.ingredients.forEach(item => {
-    //             list.add(item.ingredient)
-    //         })
-    //     })
-    //     this.filteredIngredients = list;
-    // }
-
-    addToFilter(tag)
-    {
-        this.selectedIngredients.add(tag);
-    }
-
-    displaySelectedTag(el)
-    {
-        el.classList.add('select');
-    }
-
-    removeFromFilter(tag)
-    {
-        this.selectedIngredients.delete(tag);
-    }
-
-    displayUnselectedTag(el)
-    {
-        el.classList.remove('select');
     }
 }
 
