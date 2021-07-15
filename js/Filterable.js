@@ -17,7 +17,6 @@ class Filterable
             this.listenForFilter();
             this.listenForUnselect();
         });
-        
     }
 
     collect(recipes)
@@ -39,21 +38,24 @@ class Filterable
     {
         items = this.sortAlaphabetically(items);
 
-        console.log(items);
-
         return new Promise((resolve, reject) => {
             let html = '';
+
+            console.log('here2', items)
 
             items.forEach(item => {
                 if (!this.selected.has(item)) {
                     html += `<a href="#" class="${this.type}-tag tag" data-name="${item}">${item}</a>`;
                 }
-            });
+            })
+
+            // if (items.length === 1 && this.selected.has(item)) {
+            //     console.log('here')
+            //     html += `<p>Aucun ${this.type} à selectionner</p>`;
+            // }
             document.getElementById(`list-${this.type}`).innerHTML = html;
             resolve();
         })
-        
-
     }
 
     displaySelection()
@@ -96,12 +98,9 @@ class Filterable
         document.querySelectorAll("." + this.type + "-selected-tag").forEach(chip => {
             chip.addEventListener("click", (e) => {
                 let tag = e.target.getAttribute('data-name');
-                let methodName = this._writeMethodName('has');
 
-                this.selected.add(tag);
-                let recipesId = list.all.filter(recipe => !!(recipe[methodName](tag))).map(recipe => recipe.id);
-
-                list.addFilter(this.type, tag, recipesId);
+                this.selected.delete(tag);
+                list.removeFilter(this.type, tag);
                 this.displaySelection();
                 list.filter();
                 list.build();

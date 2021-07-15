@@ -17,8 +17,12 @@ class List
         let html = '';
 
         for (let i = 0; i < this.filtered.length; i++) {
-            let recipe = new Recipe(this.filtered[i]);
-            html += recipe.renderCard()
+            if (this.filtered.length === 0) {
+                html += 'Aucune recette ne correspond à votre recherche'
+            } else {
+                let recipe = new Recipe(this.filtered[i]);
+                html += recipe.renderCard()
+            }
         }
         document.getElementById('recipes').innerHTML = html;
     }
@@ -32,8 +36,7 @@ class List
     build() 
     {
         list.displayRecipes();
-        console.log(this.filterables);
-        for (let [key, filterable] of Object.entries(this.filterable))
+        for (let [key, filterable] of Object.entries(this.filterables))
         {
             filterable.filtered = filterable.collect(this.filtered);
             filterable.displayList(filterable.filtered);
@@ -78,7 +81,7 @@ class List
         `
     }
 
-    removeFromFilter(tag, type)
+    removeFilter(tag, type)
     {
         let index = this.filters.findIndex(filter => (filter.tag == tag && filter.type == type));
         this.filters.splice(index, 1);

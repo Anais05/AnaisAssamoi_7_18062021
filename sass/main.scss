@@ -47,33 +47,30 @@ body {
 
   .menu-close {
     display: block;
+    position: relative;
   }
 
   .menu-open {
     display: none;
-    width: 50%;
+    position: relative;
+    width: 600px;
     border-radius: 5px;
     padding-bottom: 25px;
 
     .type-search-input {
-      width: 97%;
+      width: 98%;
 
       &:focus {
-        width: 97%;
+        width: 98%;
       }
-    }
-
-    .type-search-icon {
-      top: -40px;
-      right: -90%;
     }
   }
 
   .type-search-icon {
-    position: relative;
+    position: absolute;
     color: white;
-    top: 5px;
-    right: 40px;
+    top: 20px;
+    right: 20px;
     cursor: pointer;
   }
 
@@ -102,20 +99,17 @@ body {
   }
 
   #ingredient,
-  #dropdown-ingredient-open,
-  .ingredient-selected-tag {
+  #dropdown-ingredient-open {
     background-color: $primary;
   }
 
   #appliance,
-  #dropdown-appliance-open,
-  .appliance-selected-tag {
+  #dropdown-appliance-open {
     background-color: $secondary;
   }
 
   #ustensil,
-  #dropdown-ustensil-open,
-  .ustensil-selected-tag {
+  #dropdown-ustensil-open {
     background-color: $tertiary;
   }
 
@@ -123,15 +117,16 @@ body {
   #dropdown-appliance,
   #dropdown-ingredient-open,
   #dropdown-appliance-open {
-    margin-right: 30px;
+    margin-right: 40px;
   }
 
   .dropdown-content {
     max-height: 400px;
     padding-left: 15px;
-    width: 97%;
+    width: 98%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    column-gap: 15px;
     overflow-y: scroll;
 
     &::-webkit-scrollbar {
@@ -160,17 +155,33 @@ body {
 #selection {
   margin-top: 50px;
   display: flex;
-  justify-content: space-between;
 
-  #ingredient-tags-selected,
-  #appliance-tags-selected,
-  #ustensil-tags-selected {
-    width: 30%;
+  .tag {
+    color: white;
+    padding: 10px;
+    margin: 0 10px 0 10px;
+    border-radius: 5px;
+
+    &:hover {
+      color: black;
+    }
+  }
+
+  .ingredient-selected-tag {
+    background-color: $primary;
+  }
+
+  .appliance-selected-tag {
+    background-color: $secondary;
+  }
+
+  .ustensil-selected-tag {
+    background-color: $tertiary;
   }
 }
 
 #recipes {
-  margin-top: 230px;
+  margin-top: 200px;
   grid-template-columns: repeat(2, 1fr);
   display: grid;
   grid-gap: 30px;

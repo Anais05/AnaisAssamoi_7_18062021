@@ -41,28 +41,26 @@ body {
 }
 .type-search .menu-close {
   display: block;
+  position: relative;
 }
 .type-search .menu-open {
   display: none;
-  width: 50%;
+  position: relative;
+  width: 600px;
   border-radius: 5px;
   padding-bottom: 25px;
 }
 .type-search .menu-open .type-search-input {
-  width: 97%;
+  width: 98%;
 }
 .type-search .menu-open .type-search-input:focus {
-  width: 97%;
-}
-.type-search .menu-open .type-search-icon {
-  top: -40px;
-  right: -90%;
+  width: 98%;
 }
 .type-search .type-search-icon {
-  position: relative;
+  position: absolute;
   color: white;
-  top: 5px;
-  right: 40px;
+  top: 20px;
+  right: 20px;
   cursor: pointer;
 }
 .type-search .type-search-input {
@@ -87,32 +85,30 @@ body {
   width: 170px;
 }
 .type-search #ingredient,
-.type-search #dropdown-ingredient-open,
-.type-search .ingredient-selected-tag {
+.type-search #dropdown-ingredient-open {
   background-color: #3282f7;
 }
 .type-search #appliance,
-.type-search #dropdown-appliance-open,
-.type-search .appliance-selected-tag {
+.type-search #dropdown-appliance-open {
   background-color: #68d9a4;
 }
 .type-search #ustensil,
-.type-search #dropdown-ustensil-open,
-.type-search .ustensil-selected-tag {
+.type-search #dropdown-ustensil-open {
   background-color: #ed6454;
 }
 .type-search #dropdown-ingredient,
 .type-search #dropdown-appliance,
 .type-search #dropdown-ingredient-open,
 .type-search #dropdown-appliance-open {
-  margin-right: 30px;
+  margin-right: 40px;
 }
 .type-search .dropdown-content {
   max-height: 400px;
   padding-left: 15px;
-  width: 97%;
+  width: 98%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  column-gap: 15px;
   overflow-y: scroll;
 }
 .type-search .dropdown-content::-webkit-scrollbar {
@@ -136,16 +132,28 @@ body {
 #selection {
   margin-top: 50px;
   display: flex;
-  justify-content: space-between;
 }
-#selection #ingredient-tags-selected,
-#selection #appliance-tags-selected,
-#selection #ustensil-tags-selected {
-  width: 30%;
+#selection .tag {
+  color: white;
+  padding: 10px;
+  margin: 0 10px 0 10px;
+  border-radius: 5px;
+}
+#selection .tag:hover {
+  color: black;
+}
+#selection .ingredient-selected-tag {
+  background-color: #3282f7;
+}
+#selection .appliance-selected-tag {
+  background-color: #68d9a4;
+}
+#selection .ustensil-selected-tag {
+  background-color: #ed6454;
 }
 
 #recipes {
-  margin-top: 230px;
+  margin-top: 200px;
   grid-template-columns: repeat(2, 1fr);
   display: grid;
   grid-gap: 30px;
