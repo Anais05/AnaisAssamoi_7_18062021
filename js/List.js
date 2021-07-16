@@ -43,6 +43,7 @@ class List
             filterable.listenForFilter();
             filterable.build();
             filterable.listenForUnselect();
+            filterable.listenForInputFilter();
         }
     }
 
@@ -70,11 +71,11 @@ class List
     {
         return `
             <div id="dropdown-${type}" class="menu-close">
-                <input type="search" id="${type}" class="type-search-input" placeholder="${type}s"/>
+                <input type="search" id="${type}" class="${type}-search type-search-input" placeholder="${type}s"/>
                 <i class="type-search-icon fas fa-chevron-down" id="${type}-open"></i>
             </div>
             <div id="dropdown-${type}-open" class="menu-open">
-                <input type="search" id="${type}" class="type-search-input" placeholder="Rechercher un ${type}"/>
+                <input type="search" id="${type}" class="${type}-search type-search-input" placeholder="Rechercher un ${type}"/>
                 <i class="type-search-icon fas fa-chevron-up" id="${type}-close"></i>
                 <div class="dropdown-content" id="list-${type}"></div>
             </div>

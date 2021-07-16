@@ -8,6 +8,7 @@ class Filterable
         this.type = type;
         this.selection = document.getElementById('selection');
         this.selection.innerHTML += `<div id="${this.type}-tags-selected"></div>`;
+        this.searchValue = '';
     }
 
     build()
@@ -40,8 +41,6 @@ class Filterable
 
         return new Promise((resolve, reject) => {
             let html = '';
-
-            console.log('here2', items)
 
             items.forEach(item => {
                 if (!this.selected.has(item)) {
@@ -89,6 +88,25 @@ class Filterable
                 this.displaySelection();
                 list.filter();
                 list.build();
+            })
+        })
+    }
+
+    listenForInputFilter() 
+    {
+        console.log('here');
+
+        typeInput = document.querySelectorAll("." + this.type + "-search").forEach(input => {
+            input.addEventListener("input", (e) => {
+                document.getElementById("list-" + this.type).style.display = "block";
+                this.searchValue = e.target.value;
+                let tags = document.querySelectorAll("." + this.type + "-tag");
+                tags.forEach(tag => {
+                    let name = tag.getAttribute("data-name");
+                    if (!name.includes(this.searchValue)) {
+                        tag.style.display = "none";
+                    }
+                })
             })
         })
     }
