@@ -1,15 +1,21 @@
 let list = new List();
 
-for (let i = 0; i < recipes.length; i++) {
-    let recipe = new Recipe(recipes[i]);
+recipes.forEach(recipe => {
     list.add(recipe);
-}
+});
 
 list.filtered = list.all;
 
 list.displayRecipes();
-list.createFilterable('ingredient');
-list.createFilterable('appliance');
-list.createFilterable('ustensil');
+
+filter = new FilterByIngredient();
+list.createFilter(filter);
+
+filter = new FilterByAppliance();
+list.createFilter(filter);
+
+filter = new FilterByUstensil();
+list.createFilter(filter);
+
 
 

@@ -1,4 +1,4 @@
-class Filter
+class Selection
 {
     constructor(type, tag, ids)
     {
