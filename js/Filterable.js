@@ -6,25 +6,31 @@ class Filterable
         this.filtered = new Set();
         this.selected = new Set();
         this.type = type;
-        this.BuildDropDownHTML();
         this.searchValue = '';
+        this.BuildDropDownHTML().then(()=> {
+            this.listenForInputSearch();
+        });
     }
 
     BuildDropDownHTML()
     {
-        let dropDown = `
-            <div id="dropdown-${this.type}" class="menu-close">
-                <input type="search" id="${this.type}" class="${this.type}-search type-search-input" placeholder="${this.type}s"/>
-                <i class="type-search-icon fas fa-chevron-down" id="${this.type}-open"></i>
-            </div>
-            <div id="dropdown-${this.type}-open" class="menu-open">
-                <input type="search" id="${this.type}" class="${this.type}-search type-search-input" placeholder="Rechercher un ${this.type}"/>
-                <i class="type-search-icon fas fa-chevron-up" id="${this.type}-close"></i>
-                <div class="dropdown-content" id="list-${this.type}"></div>
-            </div>
-        `;
-        document.getElementById('selection').innerHTML += `<div id="${this.type}-tags-selected"></div>`
-        document.getElementById('filters').innerHTML += dropDown;
+        return new Promise((resolve, reject) => {
+            let dropDown = `
+                <div id="dropdown-${this.type}" class="menu-close">
+                    <input type="search" id="${this.type}" class="${this.type}-search type-search-input" placeholder="${this.type}s"/>
+                    <i class="type-search-icon fas fa-chevron-down" id="${this.type}-open"></i>
+                </div>
+                <div id="dropdown-${this.type}-open" class="menu-open">
+                    <input type="search" id="${this.type}" class="${this.type}-search type-search-input" placeholder="Rechercher un ${this.type}"/>
+                    <i class="type-search-icon fas fa-chevron-up" id="${this.type}-close"></i>
+                    <div class="dropdown-content" id="list-${this.type}"></div>
+                </div>
+            `;
+            document.getElementById('selection').innerHTML += `<div id="${this.type}-tags-selected"></div>`
+            document.getElementById('filters').innerHTML += dropDown;
+            resolve();
+        })
+        
 
     }
 
@@ -85,9 +91,9 @@ class Filterable
 
     listenForUnselect()
     {
-        document.querySelectorAll("." + this.type + "-selected-tag").forEach(chip => {
+        document.querySelectorAll(".fa-times-circle").forEach(chip => {
             chip.addEventListener("click", (e) => {
-                let tag = e.target.getAttribute('data-name');
+                let tag = e.target.parentNode.getAttribute('data-name');
                 this.selected.delete(tag);
                 this.displaySelection();
                 list.filter();
@@ -96,24 +102,28 @@ class Filterable
         })
     }
 
-    // listenForInputFilter() 
-    // {
-    //     console.log('here');
+    listenForInputSearch() 
+    {
+        document.getElementById(`${this.type}`).addEventListener("input", (e) => {
+            document.getElementById("list-" + this.type).style.display = "block";
+            this.searchValue = e.target.value;
+            console.log(this.searchValue);
+            this.filterByInput();
+        })
+    }
 
-    //     document.querySelectorAll("." + this.type + "-search").forEach(input => {
-    //         input.addEventListener("input", (e) => {
-    //             document.getElementById("list-" + this.type).style.display = "block";
-    //             this.searchValue = e.target.value;
-    //             let tags = document.querySelectorAll("." + this.type + "-tag");
-    //             tags.forEach(tag => {
-    //                 let name = tag.getAttribute("data-name");
-    //                 if (!name.includes(this.searchValue)) {
-    //                     tag.style.display = "none";
-    //                 }
-    //             })
-    //         })
-    //     })
-    // }
+    filterByInput()
+    {
+        let tags = document.querySelectorAll("." + this.type + "-tag");
+
+        tags.forEach((tag) => {
+            let name = tag.getAttribute("data-name");
+      
+            if (!name.includes(this.searchValue)) {
+                tag.style.display = "none";
+            }
+        })
+    }
 
     sortAlaphabetically(list) 
     {

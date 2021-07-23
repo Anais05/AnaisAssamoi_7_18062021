@@ -42,4 +42,5 @@ class FilterByIngredient extends Filterable
             return isSelectable;
         })
     }
+
 }
