@@ -42,6 +42,7 @@ body {
 .type-search .menu-close {
   display: block;
   position: relative;
+  height: 65px;
 }
 .type-search .menu-open {
   display: none;
@@ -85,14 +86,17 @@ body {
   width: 170px;
 }
 .type-search #ingredient,
+.type-search #ingredient-search,
 .type-search #dropdown-ingredient-open {
   background-color: #3282f7;
 }
 .type-search #appliance,
+.type-search #appliance-search,
 .type-search #dropdown-appliance-open {
   background-color: #68d9a4;
 }
 .type-search #ustensil,
+.type-search #ustensil-search,
 .type-search #dropdown-ustensil-open {
   background-color: #ed6454;
 }

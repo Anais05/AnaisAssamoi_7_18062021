@@ -48,6 +48,7 @@ body {
   .menu-close {
     display: block;
     position: relative;
+    height: 65px;
   }
 
   .menu-open {
@@ -99,16 +100,19 @@ body {
   }
 
   #ingredient,
+  #ingredient-search,
   #dropdown-ingredient-open {
     background-color: $primary;
   }
 
   #appliance,
+  #appliance-search,
   #dropdown-appliance-open {
     background-color: $secondary;
   }
 
   #ustensil,
+  #ustensil-search,
   #dropdown-ustensil-open {
     background-color: $tertiary;
   }

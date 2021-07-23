@@ -1,9 +1,11 @@
-let ingrBtn = document.getElementById("ingredient-open");
-let applBtn = document.getElementById("appliance-open");
-let ustBtn = document.getElementById("ustensil-open");
+let ingrBtn = document.getElementById("dropdown-ingredient");
+let applBtn = document.getElementById("dropdown-appliance");
+let ustBtn = document.getElementById("dropdown-ustensil");
 let ingrBtnClose = document.getElementById("ingredient-close");
 let applBtnClose = document.getElementById("appliance-close");
 let ustBtnClose = document.getElementById("ustensil-close");
+let main = document.getElementById("recipes");
+let searchBar = document.getElementById("main-search");
 
 ingrBtn.addEventListener("click", openIngrMenu);
 applBtn.addEventListener("click", openApplMenu);
@@ -11,6 +13,8 @@ ustBtn.addEventListener("click", openUstMenu);
 ingrBtnClose.addEventListener("click", closeAllMenu);
 applBtnClose.addEventListener("click", closeAllMenu);
 ustBtnClose.addEventListener("click", closeAllMenu);
+main.addEventListener("click", closeAllMenu);
+searchBar.addEventListener("click", closeAllMenu);
 
 function openIngrMenu() 
 {
