@@ -170,6 +170,11 @@ body {
   padding-left: unset;
   margin: unset;
 }
+#recipes .empty-search {
+  width: 90vw;
+  text-align: center;
+  color: red;
+}
 
 .card {
   width: 100%;

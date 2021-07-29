@@ -116,7 +116,7 @@ class Filterable
         tags.forEach((tag) => {
             let name = tag.getAttribute("data-name");
       
-            if (!name.toLocaleLowerCase().includes(this.searchValue.toLocaleLowerCase())) {
+            if (!name.toLowerCase().includes(this.searchValue.toLowerCase())) {
                 tag.style.display = "none";
             } else {
                 tag.style.display = "block";
