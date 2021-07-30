@@ -10,21 +10,41 @@ class Search
     listenForSearch()
     {
         document.getElementById('main-search').addEventListener('input', (e) => {
-            this.searchValue = e.target.value.toLowerCase();
-            this.search(this.searchValue);
+            let newSearchValue = e.target.value.toLowerCase();
+
+            if (newSearchValue.length > 2) 
+            {
+                if(newSearchValue.length >= this.searchValue.length) 
+                {
+                    list.filtered = list.all;
+                }
+                this.searchValue = newSearchValue;
+                this.search();
+
+            } else 
+            {
+                list.filtered = list.all;
+                list.displayRecipes();
+            }
+
+            list.build();
+            
         })
     }
 
-    search(needle)
+    search()
     {
-        list.filtered = this.recipeTerms.filter(recipe => {
-            console.log(recipe.terms);
-            if (recipe.terms.includes(needle)) {
-                return true;
-            }
-            return false;
+        let recipeIds = this.recipeTerms.filter(recipe => {
+            return !![...recipe.terms].find(term => !!term.includes(this.searchValue));
+        }).map(item => item.id);
+
+        list.filtered = list.all.filter(recipe => {
+            return !!(recipeIds.includes(recipe.id));
         })
-        list.displayRecipes()
+
+        console.log(list.filtered);
+
+        list.displayRecipes();
     }
 
     findTerms()
@@ -33,26 +53,23 @@ class Search
             let toKeep = new Set();
 
             let name = recipe.name.split(' ');
-            console.log(name,'name');
             name.forEach(term => {
                 if (!irrelevantTerms.includes(term)) {
-                    toKeep.add(term);
+                    toKeep.add(term.toLowerCase());
                 }
             });
 
             let description = recipe.description.split(' ');
-            console.log(description,'description');
             description.forEach(term => {
                 if (!irrelevantTerms.includes(term)) {
-                    toKeep.add(term);
+                    toKeep.add(term.toLowerCase());
                 }
             });
 
             for (let i = 0; i < recipe.ingredients; i++) {
                 let term = recipe.ingredients[i].ingredient.split(' ');
-                console.log(term,'ingredient');
                 if (!irrelevantTerms.includes(term)) {
-                    toKeep.add(term);
+                    toKeep.add(term.toLowerCase());
                 }
             }
 
