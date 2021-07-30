@@ -6,8 +6,9 @@ class List
       this.filters = [];
     }
 
-    add(recipe) 
+    add(recipeRaw) 
     {
+        let recipe = new Recipe(recipeRaw);
         list.all.push(recipe);
     }
 
@@ -18,11 +19,10 @@ class List
         if (this.filtered.length === 0) {
             html += `<p class="empty-search">Aucune recette ne correspond à votre critère… vous pouvez
             chercher « tarte aux pommes », « poisson », etc.</p>`
-        } else {
-            for (let i = 0; i < this.filtered.length; i++) {
-                let recipe = new Recipe(this.filtered[i]);
-                html += recipe.renderCard()
-            }
+        }else {
+            this.filtered.forEach(recipe => {
+                html += recipe.renderCard();
+            })
         }
 
         document.getElementById('recipes').innerHTML = html;
