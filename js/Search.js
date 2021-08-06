@@ -8,7 +8,6 @@ class Search
     listenForSearch()
     {
         document.getElementById('main-search').addEventListener('input', (e) => {
-            // this.searchValue = e.target.value.toLowerCase();
             let newSearchValue = e.target.value.toLowerCase();
 
             if (newSearchValue.length > 2) 
@@ -34,6 +33,7 @@ class Search
 
     search()
     {
+        // try with list.filtered => doesn't work
         list.filtered = list.all.filter(recipe => {
             if (recipe.name.toLowerCase().includes(this.searchValue)) 
             {
@@ -52,6 +52,8 @@ class Search
             }
             return false;
         })
+
+        console.log(list.filtered);
 
         list.displayRecipes()
     }
