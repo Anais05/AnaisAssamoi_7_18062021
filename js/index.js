@@ -17,7 +17,6 @@ list.createFilter(filter);
 filter = new FilterByUstensil();
 list.createFilter(filter);
 
-
-let search = new Search();
-search.listenForSearch();
+list.search = new Search(list.all);
+list.search.listen();
 

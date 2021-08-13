@@ -83,7 +83,6 @@ class Filterable
                 this.selected.add(tag);
                 this.displaySelection();
                 list.filter();
-                list.build();
             })
         })
     }
@@ -96,7 +95,6 @@ class Filterable
                 this.selected.delete(tag);
                 this.displaySelection();
                 list.filter();
-                list.build();
             })
         })
     }

@@ -4,6 +4,7 @@ class List
       this.all = [];
       this.filtered = [];
       this.filters = [];
+      this.search = null;
     }
 
     add(recipeRaw) 
@@ -19,7 +20,7 @@ class List
         if (this.filtered.length === 0) {
             html += `<p class="empty-search">Aucune recette ne correspond à votre critère… vous pouvez
             chercher « tarte aux pommes », « poisson », etc.</p>`
-        }else {
+        } else {
             this.filtered.forEach(recipe => {
                 html += recipe.renderCard();
             })
@@ -34,9 +35,7 @@ class List
         this.filters.forEach(filter => {
             filter.filtered = filter.collect(this.filtered);
             filter.displayList(filter.filtered);
-            filter.listenForFilter();
             filter.build();
-            filter.listenForUnselect();
         })
     }
 
@@ -50,11 +49,16 @@ class List
     {
         let list = this.all;
 
+        // by tags
         this.filters.forEach(filter => {
             list = filter.filter(list);
         })
 
         this.filtered = list;
+
+        // by terms
+        this.search.search(this.filtered)
+        this.build();
     }
 
 }

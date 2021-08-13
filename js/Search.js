@@ -5,36 +5,23 @@ class Search
         this.searchValue = '';
     }
 
-    listenForSearch()
+    listen()
     {
         document.getElementById('main-search').addEventListener('input', (e) => {
-            let newSearchValue = e.target.value.toLowerCase();
-
-            if (newSearchValue.length > 2) 
-            {
-                if(newSearchValue.length >= this.searchValue.length) 
-                {
-                    list.filtered = list.all;
-                }
-                this.searchValue = newSearchValue;
-                this.search();
-
-            } else 
-            {
-                list.filtered = list.all;
-                list.displayRecipes();
-            }
-
-            list.build();
-            
+            this.searchValue = e.target.value.toLowerCase();
+            list.filter();
         })
 
     }
 
-    search()
+    search(recipes)
     {
-        // try with list.filtered => doesn't work
-        list.filtered = list.all.filter(recipe => {
+        if (this.searchValue.length < 3) 
+        {
+           return recipes;
+        }
+
+        list.filtered = recipes.filter(recipe => {
             if (recipe.name.toLowerCase().includes(this.searchValue)) 
             {
                 return true;
@@ -52,9 +39,5 @@ class Search
             }
             return false;
         })
-
-        console.log(list.filtered);
-
-        list.displayRecipes()
     }
 }
