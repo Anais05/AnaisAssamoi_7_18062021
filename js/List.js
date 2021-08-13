@@ -4,6 +4,7 @@ class List
       this.all = [];
       this.filtered = [];
       this.filters = [];
+      this.search = null;
     }
 
     add(recipeRaw) 
@@ -34,10 +35,10 @@ class List
         this.filters.forEach(filter => {
             filter.filtered = filter.collect(this.filtered);
             filter.displayList(filter.filtered);
-            filter.listenForFilter();
             filter.build();
-            filter.listenForUnselect();
         })
+        this.search.listen();
+
     }
 
     createFilter(filter)
@@ -50,11 +51,15 @@ class List
     {
         let list = this.all;
 
+        // by tags
         this.filters.forEach(filter => {
             list = filter.filter(list);
         })
 
         this.filtered = list;
+
+        this.search.search(this.filtered)
+        this.build();
     }
 
 }

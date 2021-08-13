@@ -1,55 +1,40 @@
 class Search 
 {
-    constructor()
+    constructor(recipes)
     {
         this.searchValue = '';
         this.recipeTerms = [];
-        this.findTerms();
+        this.findTerms(recipes);
     }
 
-    listenForSearch()
+    listen()
     {
         document.getElementById('main-search').addEventListener('input', (e) => {
-            let newSearchValue = e.target.value.toLowerCase();
+            let value = e.target.value;
 
-            if (newSearchValue.length > 2) 
+            if (value.length > 2) 
             {
-                if(newSearchValue.length >= this.searchValue.length) 
-                {
-                    list.filtered = list.all;
-                }
-                this.searchValue = newSearchValue;
-                this.search();
-
-            } else 
-            {
-                list.filtered = list.all;
-                list.displayRecipes();
+                this.searchValue = value.toLowerCase();
             }
-
-            list.build();
             
+            list.filter();
         })
     }
 
-    search()
+    search(recipes)
     {
         let recipeIds = this.recipeTerms.filter(recipe => {
             return !![...recipe.terms].find(term => !!term.includes(this.searchValue));
         }).map(item => item.id);
-            // test with list.filtered => doesn't work
-        list.filtered = list.all.filter(recipe => {
+
+        list.filtered = recipes.filter(recipe => {
             return !!(recipeIds.includes(recipe.id));
         })
-
-        console.log(list.filtered);
-
-        list.displayRecipes();
     }
 
-    findTerms()
+    findTerms(recipes)
     {
-        list.filtered.forEach(recipe => {
+        recipes.forEach(recipe => {
             let toKeep = new Set();
 
             let name = recipe.name.split(' ');
