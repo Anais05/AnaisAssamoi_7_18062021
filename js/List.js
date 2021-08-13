@@ -37,8 +37,6 @@ class List
             filter.displayList(filter.filtered);
             filter.build();
         })
-        this.search.listen();
-
     }
 
     createFilter(filter)
@@ -58,6 +56,7 @@ class List
 
         this.filtered = list;
 
+        // by terms
         this.search.search(this.filtered)
         this.build();
     }

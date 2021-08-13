@@ -10,19 +10,18 @@ class Search
     listen()
     {
         document.getElementById('main-search').addEventListener('input', (e) => {
-            let value = e.target.value;
-
-            if (value.length > 2) 
-            {
-                this.searchValue = value.toLowerCase();
-            }
-            
+            this.searchValue = e.target.value.toLowerCase();
             list.filter();
         })
     }
 
     search(recipes)
     {
+        if (this.searchValue.length < 3) 
+        {
+           return recipes;
+        }
+
         let recipeIds = this.recipeTerms.filter(recipe => {
             return !![...recipe.terms].find(term => !!term.includes(this.searchValue));
         }).map(item => item.id);
@@ -30,6 +29,7 @@ class Search
         list.filtered = recipes.filter(recipe => {
             return !!(recipeIds.includes(recipe.id));
         })
+
     }
 
     findTerms(recipes)
