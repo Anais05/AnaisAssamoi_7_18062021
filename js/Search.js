@@ -6,20 +6,21 @@ class Search
     }
 
     listen()
-    {
+    { 
         document.getElementById('main-search').addEventListener('input', (e) => {
             this.searchValue = e.target.value.toLowerCase();
             list.filter();
         })
-
     }
 
     search(recipes)
     {
+        
         if (this.searchValue.length < 3) 
         {
            return recipes;
         }
+        console.time('2')
 
         list.filtered = recipes.filter(recipe => {
             if (recipe.name.toLowerCase().includes(this.searchValue)) 
