@@ -9,10 +9,12 @@ class Search
 
     listen()
     {
+        console.time('1')
         document.getElementById('main-search').addEventListener('input', (e) => {
             this.searchValue = e.target.value.toLowerCase();
             list.filter();
         })
+        console.timeEnd('1')
     }
 
     search(recipes)
