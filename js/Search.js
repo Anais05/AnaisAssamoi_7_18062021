@@ -9,12 +9,10 @@ class Search
 
     listen()
     {
-        console.time('1')
         document.getElementById('main-search').addEventListener('input', (e) => {
             this.searchValue = e.target.value.toLowerCase();
             list.filter();
         })
-        console.timeEnd('1')
     }
 
     search(recipes)
@@ -24,6 +22,8 @@ class Search
            return recipes;
         }
 
+        console.time('1')
+
         let recipeIds = this.recipeTerms.filter(recipe => {
             return !![...recipe.terms].find(term => !!term.includes(this.searchValue));
         }).map(item => item.id);
@@ -31,6 +31,7 @@ class Search
         list.filtered = recipes.filter(recipe => {
             return !!(recipeIds.includes(recipe.id));
         })
+        console.timeEnd('1')
 
     }
 

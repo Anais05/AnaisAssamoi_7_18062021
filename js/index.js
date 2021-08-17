@@ -21,9 +21,6 @@ list.search = new Search(list.all);
 list.search.listen();
 
 
-// let search = new Search(list.all);
-// search.listen();
-
 
 
 
