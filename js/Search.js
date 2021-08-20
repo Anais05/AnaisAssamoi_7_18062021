@@ -20,7 +20,6 @@ class Search
         {
            return recipes;
         }
-        console.time('2')
 
         list.filtered = recipes.filter(recipe => {
             if (recipe.name.toLowerCase().includes(this.searchValue)) 
@@ -40,7 +39,6 @@ class Search
             }
             return false;
         })
-        console.timeEnd('2')
 
     }
 }
