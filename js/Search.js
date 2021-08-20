@@ -23,11 +23,11 @@ class Search
         }
 
         let recipeIds = this.recipeTerms.filter(recipe => {
-            return !![...recipe.terms].find(term => term.includes(this.searchValue));
+            return [...recipe.terms].find(term => term.includes(this.searchValue));
         }).map(item => item.id);
 
         list.filtered = recipes.filter(recipe => {
-            return !!(recipeIds.includes(recipe.id));
+            return (recipeIds.includes(recipe.id));
         })
 
     }
