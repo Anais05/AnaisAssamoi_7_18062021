@@ -10,7 +10,7 @@ class Recipe {
         this.description = data.description;
         this.appliance = data.appliance;
         this.ustensils = data.ustensils;
-        this.maxDescriptionLength = 230;
+        this.maxDescriptionLength = 175;
     }
 
     rederIngredients()
@@ -48,7 +48,7 @@ class Recipe {
 
     renderCard() {
         return `
-            <article class="card">
+            <article id="card">
                 <img class="card-image" src="./img/img.png" alt="${this.name}">
                 <div class="card-info">
                     <div class="card-header">

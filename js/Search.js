@@ -40,5 +40,7 @@ class Search
             }
             return false;
         })
+        console.timeEnd('2')
+
     }
 }

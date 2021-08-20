@@ -1,0 +1,62 @@
+@media screen and (min-width: 1440px) {
+  #recipes {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 880px) {
+  #recipes {
+    grid-template-columns: 1fr;
+  }
+
+  #selection {
+    flex-direction: column;
+    justify-content: space-between;
+    #ingredient-tags-selected,
+    #appliance-tags-selected,
+    #ustensil-tags-selected {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .tag {
+      margin: 10px;
+    }
+  }
+
+  .type-search {
+    display: block;
+    width: 100%;
+
+    .type-search-input {
+      width: 100%;
+    }
+
+    #dropdown-ingredient,
+    #dropdown-appliance,
+    #dropdown-ustensil,
+    #dropdown-ingredient-open,
+    #dropdown-appliance-open,
+    #dropdown-ustensil-open {
+      margin-right: unset;
+      margin-bottom: 25px;
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  #card .card-recipe {
+    display: block;
+    height: 260px;
+
+    .card-ingredients {
+      margin-bottom: 10px;
+    }
+    .card-ingredients,
+    .card-description {
+      width: 100%;
+    }
+  }
+}

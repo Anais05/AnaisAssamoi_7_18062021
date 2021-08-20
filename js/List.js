@@ -59,7 +59,6 @@ class List
         // by terms
         this.search.search(this.filtered)
         this.build();
-        console.timeEnd('2')
     }
 
 }
