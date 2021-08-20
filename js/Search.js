@@ -24,15 +24,21 @@ class Search
 
         console.time('1')
 
-        let recipeIds = this.recipeTerms.filter(recipe => {
-            return !![...recipe.terms].find(term => !!term.includes(this.searchValue));
-        }).map(item => item.id);
+        let filtered = [];
 
-        list.filtered = recipes.filter(recipe => {
-            return !!(recipeIds.includes(recipe.id));
+        this.recipeTerms.forEach(item => {
+            let isValid = !![...item.terms].find(term => !!term.includes(this.searchValue));
+            if (isValid) {
+               let tokeep = recipes.find(recipe => recipe.id == item.id)
+               if (tokeep == undefined) {
+                   return;
+                }
+               filtered.push(tokeep);
+            }
+            
         })
         console.timeEnd('1')
-
+        return list.filtered = filtered;
     }
 
     findTerms(recipes)
