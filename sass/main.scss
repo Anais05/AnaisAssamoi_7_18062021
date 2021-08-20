@@ -43,7 +43,6 @@ body {
 .type-search {
   margin-top: 50px;
   display: flex;
-  position: absolute;
 
   .menu-close {
     display: block;
@@ -54,7 +53,6 @@ body {
   .menu-open {
     display: none;
     position: relative;
-    width: 600px;
     border-radius: 5px;
     padding-bottom: 25px;
 
@@ -186,10 +184,10 @@ body {
 }
 
 #recipes {
-  margin-top: 200px;
+  margin-top: 50px;
   grid-template-columns: repeat(2, 1fr);
   display: grid;
-  grid-gap: 30px;
+  grid-gap: 20px;
   flex-direction: row;
   flex-wrap: wrap;
 
@@ -206,7 +204,7 @@ body {
   }
 }
 
-.card {
+#card {
   width: 100%;
   background-color: $light-grey;
   border-radius: 5px;
@@ -237,7 +235,7 @@ body {
     justify-content: space-between;
     padding: 0 20px 0 20px;
     align-items: flex-start;
-    height: 170px;
+    height: 200px;
 
     .card-ingredients,
     .card-description {
@@ -250,3 +248,5 @@ body {
     }
   }
 }
+
+@import "responsive.scss";

@@ -10,7 +10,7 @@ class Recipe {
         this.description = data.description;
         this.appliance = data.appliance;
         this.ustensils = data.ustensils;
-        this.maxDescriptionLength = 230;
+        this.maxDescriptionLength = 175;
     }
 
     rederIngredients()
@@ -18,7 +18,7 @@ class Recipe {
         let html = '';
 
         this.ingredients.forEach((ingr) => {
-            html += `<li class="ingredient"><span class="ingr-name">${ingr.ingredient}</span>`;
+            html += `<li id="ingredient"><span class="ingr-name">${ingr.ingredient}</span>`;
 
             if (ingr.hasOwnProperty('quantity') || ingr.hasOwnProperty('unit')) 
             {
@@ -48,7 +48,7 @@ class Recipe {
 
     renderCard() {
         return `
-            <article class="card">
+            <article id="card">
                 <img class="card-image" src="./img/img.png" alt="${this.name}">
                 <div class="card-info">
                     <div class="card-header">
